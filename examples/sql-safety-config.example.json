@@ -1,0 +1,13 @@
+{
+  "extra_production_indicators": [
+    "\\bmy-company-prod\\b",
+    "\\b192\\.0\\.2\\.10\\b",
+    "Orders_Live"
+  ],
+  "extra_dangerous_patterns": [
+    { "name": "ALTER TABLE DROP COLUMN", "regex": "\\bALTER\\s+TABLE\\s+\\S+\\s+DROP\\s+COLUMN\\b" }
+  ],
+  "allowlist_commands": [
+    "^psql -h localhost "
+  ]
+}

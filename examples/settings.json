@@ -1,0 +1,36 @@
+{
+  "env": {
+    "MAIL_SEND_GUARD_CLIS": "my-mail-helper",
+    "DASHGUARD_OUTWARD_CLIS": "my-mail-helper"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|Bash|mcp__claude_ai_Slack__.*|mcp__claude_ai_Gmail__.*",
+        "hooks": [
+          { "type": "command", "command": "\"$HOME/.claude/hooks/lib/guard-run.sh\" DashGuard.hook.ts" }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "\"$HOME/.claude/hooks/lib/guard-run.sh\" SqlSafetyGuard.hook.ts" },
+          { "type": "command", "command": "\"$HOME/.claude/hooks/MailSendGuard.hook.sh\"" }
+        ]
+      },
+      {
+        "matcher": "mcp__claude_ai_Gmail__send_message|mcp__claude_ai_Gmail__reply|mcp__claude_ai_Gmail__forward|mcp__claude_ai_Google_Drive__share_file",
+        "hooks": [
+          { "type": "command", "command": "\"$HOME/.claude/hooks/ConnectorSendGuard.hook.sh\"" }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"$HOME/.claude/hooks/session-cost-monitor.js\"" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+.DS_Store
+node_modules/
+# Your own production targets stay local
+hooks/sql-safety-config.json
